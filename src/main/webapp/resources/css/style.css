@@ -1,0 +1,41 @@
+body {
+    font-family: "sans-serif", "Arial";
+    font-size: 16px;
+    background: url("/resources/images/road2.jpg") no-repeat;
+    background-size: cover;
+    width: 1500px;
+    margin:0;
+    padding:0;
+}
+a {
+    padding:0 5% 0 0;
+    text-decoration: none;
+}
+header {
+    position: relative;
+    left: 10%;
+    top: 5%;
+}
+article {
+    position: relative;
+    left: 30%;
+    top: 5%;
+}
+footer {
+    position: absolute;
+    bottom: 3%;
+    left: 5%;
+    color: white;
+}
+/*.log {
+    position: absolute;
+    right: 15%;
+}*/
+/*
+#login {
+    visibility:
+            none;
+}
+#logout {
+    visibility: hidden;
+}*/
