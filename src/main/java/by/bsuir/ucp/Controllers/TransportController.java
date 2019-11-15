@@ -48,11 +48,14 @@ public class TransportController {
                                    @RequestParam String max_capacity,
                                    @RequestParam String unit_cost,
                                    @RequestParam String speed,
+                                   @RequestParam String dangerous,
+                                   @RequestParam String fragile,
+                                   @RequestParam String perishable,
                                    Model model) {
         model.addAttribute("isAdmin", userService.isAdmin());
         model.addAttribute("isLogin", userService.isLogin());
 
-        if(transportService.addTransport(transportName, max_capacity, unit_cost, speed)) {
+        if(transportService.addTransport(transportName, max_capacity, unit_cost, speed, dangerous, fragile, perishable)) {
             model.addAttribute("transportList", transportService.getTransportList());
             return "transport";
         }

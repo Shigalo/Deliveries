@@ -10,6 +10,7 @@ CREATE TABLE `transportation`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
+  active boolean NOT NULL,
   PRIMARY KEY (`id`));
 
 CREATE TABLE `transportation`.`point` (
@@ -61,3 +62,18 @@ ADD CONSTRAINT `way_id`
   REFERENCES `transportation`.`way` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+
+ALTER TABLE transport ADD fragile double NOT NULL;
+ALTER TABLE transport ADD perishable double NOT NULL;
+ALTER TABLE transport ADD dangerous double NOT NULL;
+
+CREATE TABLE request
+(
+    id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    way_id int NOT NULL,
+    user_id int NOT NULL,
+    weight double NOT NULL,
+    cost double NOT NULL,
+    CONSTRAINT request_way FOREIGN KEY (way_id) REFERENCES way (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT request_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE ON UPDATE CASCADE
+);

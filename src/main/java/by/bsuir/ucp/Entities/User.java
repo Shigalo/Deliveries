@@ -9,7 +9,7 @@ import java.util.Set;
 @Data
 public class User {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     
     private String name;
@@ -24,6 +24,7 @@ public class User {
     public User(String name, String password, boolean active) {
         this.name = name;
         this.password = password;
+        this.active = active;
     }
 
     public User() {

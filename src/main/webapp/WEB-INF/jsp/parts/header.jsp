@@ -16,6 +16,7 @@
             <td><a href="${pageContext.request.contextPath}/points">Точки снабжения</a></td>
             <td><a href="${pageContext.request.contextPath}/ways">Пути снабжения</a></td>
             <td><a href="${pageContext.request.contextPath}/transport">Транспорт компании</a></td>
+            <c:if test="${isLogin}"><td><a href="${pageContext.request.contextPath}/requests">Заявки</a></td></c:if>
             <c:if test="${!isLogin}">
                 <td class = "log" id = "login"><a href="${pageContext.request.contextPath}/login">Вход</a></td>
             </c:if>

@@ -13,10 +13,11 @@ public class TransportService {
     @Autowired
     TransportRepository transportRepository;
 
-    public boolean addTransport(String name, String max_capacity, String unit_cost, String speed) {
+    public boolean addTransport(String name, String max_capacity, String unit_cost, String speed, String dangerous, String fragile, String perishable) {
         Transport transport = transportRepository.findByName(name);
         if (transport == null) {
-            transportRepository.save(new Transport(name, Double.valueOf(max_capacity), Double.valueOf(unit_cost), Double.valueOf(speed)));
+            transportRepository.save(new Transport(name, Double.valueOf(max_capacity), Double.valueOf(unit_cost), Double.valueOf(speed),
+                    Double.valueOf(dangerous), Double.valueOf(fragile), Double.valueOf(perishable)));
             return true;
         }
         return false;

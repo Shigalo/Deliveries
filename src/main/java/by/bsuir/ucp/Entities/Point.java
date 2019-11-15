@@ -3,14 +3,13 @@ package by.bsuir.ucp.Entities;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Data
 public class Point {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
