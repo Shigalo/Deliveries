@@ -5,22 +5,44 @@
     <h3>Авторизация</h3>
     <form action="" method="post">
 
-        <div style="position:relative; padding: 5px"><label>Вес груза : <input type="number" step="0.01" name="weight" id="weight" onchange="alert(this.value)"></label></div>
+        <div style="position:relative; padding: 5px"><label>Вес груза : <input type="number" step="0.01" name="weight" id="weight"></label></div>
         <script>
             var input = document.getElementById('weight');
             input.oninput = function() {
-                document.getElementById('result').innerHTML = input.value;
+                var n = input.value;
+                var ways = document.getElementsByName('w');
+
+                for (i = 0; i < ways.length; i++) {
+                    // alert(ways[i].id)
+                    ways[i].innerHTML = ways[i].id * n;
+                }
             };
         </script>
         <label id="result"></label>
 
-    <%--<div style="position:relative; padding: 5px"><label>Название : <input type="text" name="transportName"></label></div>
-        <div style="position:relative; padding: 5px"><label>Максимальная нагрузка : <input type="number" step="0.01" name="max_capacity"></label></div>
-        <div style="position:relative; padding: 5px"><label>Цена за кг. : <input type="number" step="0.01" name="unit_cost"></label></div>
-        <div style="position:relative; padding: 5px"><label>Скорость : <input type="number" step="0.01" name="speed"></label></div>
-        <div style="position:relative; padding: 5px"><label>Коэффициент  опасного груза: <input type="number" step="0.01" name="dangerous"></label></div>
-        <div style="position:relative; padding: 5px"><label>Коэффициент хрупкого груза : <input type="number" step="0.01" name="fragile"></label></div>
-        <div style="position:relative; padding: 5px"><label>Коэффициент скоропортящегося груза : <input type="number" step="0.01" name="perishable"></label></div>--%>
+        <table>
+            <caption>Список путей перевозки</caption>
+            <tr>
+                <th>ID</th>
+                <th>Длинна</th>
+                <th>Пункт отправки</th>
+                <th>Пункт прибытия</th>
+                <th>Длинна пути</th>
+                <th>Врем в пути</th>
+                <th>Цена перевозки</th>
+            </tr>
+            <c:forEach items="${wayList}" var="way">
+                <tr id="${way.id}">
+                    <td>${way.id}</td>
+                    <td>${way.length}</td>
+                    <td>${way.startPoint.name}</td>
+                    <td>${way.endPoint.name}</td>
+                    <td>${wayService.getLength(way)}</td>
+                    <td>${wayService.getTime(way)}</td>
+                    <td><label name="w" id = "${wayService.getCost(way)}">${wayService.getCost(way)}</label></td>
+                </tr>
+            </c:forEach>
+        </table>
         <input type="hidden" name="_csrf" value="${_csrf.token}" />
         <div style="position:relative; padding: 5px"><input type="submit" value="Добавить"/></div>
     </form>

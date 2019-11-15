@@ -24,6 +24,11 @@ public class WayService {
     @Autowired
     TransportRepository transportRepository;
 
+    @Autowired
+    PointService pointService;
+    @Autowired
+    WayService wayService;
+
     public Way getSubWay(Point startPoint, Point endPoint) {
         return wayRepository.findByStartPointAndEndPoint(startPoint, endPoint);
     }
@@ -72,5 +77,53 @@ public class WayService {
             wayRepository.save(subWay);
         }
         wayRepository.save(new Way(Double.valueOf(length[length.length-1]), subPointList.get(subPointList.size()-1), endPoint, transportList.get(transportList.size()-1)));
+    }
+
+    public Double getLength(Way way) {
+        List<Point> pointList = pointService.getSubPoints(way.getId());
+
+        List<Way> wayList = new ArrayList<>();
+        wayList.add(wayService.getSubWay(way.getStartPoint(), pointList.get(0)));
+        for(int i = 0; i < pointList.size()-1; i++) { wayList.add(wayService.getSubWay(pointList.get(i), pointList.get(i+1))); }
+        wayList.add(wayService.getSubWay(pointList.get(pointList.size()-1), way.getEndPoint()));
+
+        Double sumLength = 0.0;
+        for(Way buf : wayList) {
+            if(buf != null)
+            sumLength += buf.getLength();
+        }
+        return sumLength;
+    }
+    public Double getTime(Way way) {
+        List<Point> pointList = pointService.getSubPoints(way.getId());
+
+        List<Way> wayList = new ArrayList<>();
+        wayList.add(wayService.getSubWay(way.getStartPoint(), pointList.get(0)));
+        for(int i = 0; i < pointList.size()-1; i++) { wayList.add(wayService.getSubWay(pointList.get(i), pointList.get(i+1))); }
+        wayList.add(wayService.getSubWay(pointList.get(pointList.size()-1), way.getEndPoint()));
+
+        Double sumTime = 0.0;
+        for(Way buf : wayList) {
+            if(buf != null)
+                sumTime += buf.getLength()/buf.getTransport().getSpeed();
+        }
+        return sumTime;
+    }
+
+    public Double getCost(Way way) {
+        /*List<Point> pointList = pointService.getSubPoints(way.getId());
+
+        List<Way> wayList = new ArrayList<>();
+        wayList.add(wayService.getSubWay(way.getStartPoint(), pointList.get(0)));
+        for(int i = 0; i < pointList.size()-1; i++) { wayList.add(wayService.getSubWay(pointList.get(i), pointList.get(i+1))); }
+        wayList.add(wayService.getSubWay(pointList.get(pointList.size()-1), way.getEndPoint()));
+
+        Double sumTime = 0.0;
+        for(Way buf : wayList) {
+            if(buf != null)
+                sumTime += buf.getLength()/buf.getTransport().getSpeed();
+        }
+        return sumTime;*/
+        return 2.0;
     }
 }
