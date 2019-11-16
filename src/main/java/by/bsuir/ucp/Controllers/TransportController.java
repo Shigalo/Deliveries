@@ -28,13 +28,6 @@ public class TransportController {
         return "transport";
     }
 
-/*    @PostMapping("/points")
-    public String getForm(Model model) {
-        model.addAttribute("isLogin", userService.isLogin());
-
-        return "points";
-    }*/
-
     @GetMapping("/addTransport")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String addTransport(Model model) {
@@ -59,7 +52,7 @@ public class TransportController {
             model.addAttribute("transportList", transportService.getTransportList());
             return "transport";
         }
-        model.addAttribute("error", "Точка с таким именем уже существует!");
+        model.addAttribute("error", "Транспорт с таким именем уже существует!");
         return "addTransport";
     }
 
@@ -67,6 +60,7 @@ public class TransportController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public String editTransport(Model model, @PathVariable String id) {
         model.addAttribute("isLogin", userService.isLogin());
+        model.addAttribute("isAdmin", userService.isAdmin());
         model.addAttribute("transportList", transportService.getTransportList());
 
         Transport transport = transportService.getById(id);
@@ -75,6 +69,9 @@ public class TransportController {
         model.addAttribute("max_capacity", transport.getMax_capacity());
         model.addAttribute("unit_cost", transport.getUnit_cost());
         model.addAttribute("speed", transport.getSpeed());
+        model.addAttribute("dangerous", transport.getDangerous());
+        model.addAttribute("fragile", transport.getFragile());
+        model.addAttribute("perishable", transport.getPerishable());
 
         return "editTransport";
     }
@@ -85,10 +82,14 @@ public class TransportController {
                                     @RequestParam String max_capacity,
                                     @RequestParam String unit_cost,
                                     @RequestParam String speed,
+                                    @RequestParam String dangerous,
+                                    @RequestParam String fragile,
+                                    @RequestParam String perishable,
                                     Model model,
                                     @PathVariable String id) {
         model.addAttribute("isLogin", userService.isLogin());
-        if(transportService.editTransport(id, transportName, max_capacity, unit_cost, speed)) {
+        model.addAttribute("isAdmin", userService.isAdmin());
+        if(transportService.editTransport(id, transportName, max_capacity, unit_cost, speed, dangerous, fragile, perishable)) {
             model.addAttribute("transportList", transportService.getTransportList());
             return "transport";
         }

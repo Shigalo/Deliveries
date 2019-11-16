@@ -31,10 +31,10 @@ public class TransportService {
         return transportRepository.findById(Integer.valueOf(id));
     }
 
-    public boolean editTransport(String id, String transportName, String max_capacity, String unit_cost, String speed) {
+    public boolean editTransport(String id, String transportName, String max_capacity, String unit_cost, String speed, String dangerous, String fragile, String perishable) {
         if(transportRepository.findByName(transportName) == null || transportRepository.findByName(transportName).getId().equals(Integer.valueOf(id))) {
-            System.out.println();
-            transportRepository.setUserInfoById(transportName, Double.valueOf(max_capacity), Double.valueOf(unit_cost), Double.valueOf(speed), Integer.valueOf(id));
+            transportRepository.setUserInfoById(transportName, Double.valueOf(max_capacity), Double.valueOf(unit_cost),
+                    Double.valueOf(speed), Integer.valueOf(id), Double.valueOf(dangerous), Double.valueOf(fragile), Double.valueOf(perishable));
             return true;
         }
         return false;

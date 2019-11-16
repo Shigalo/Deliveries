@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,27 +49,6 @@ public class RequestsController {
 
 
         List<Way> wayList = wayService.getWayList();
-
-        /*Way way = wayService.getById(id);
-        model.addAttribute("way", way);
-        List<Point> pointList = pointService.getSubPoints(way.getId());
-
-        List<Way> wayList = new ArrayList<>();
-        wayList.add(wayService.getSubWay(way.getStartPoint(), pointList.get(0)));
-        for(int i = 0; i < pointList.size()-1; i++) { wayList.add(wayService.getSubWay(pointList.get(i), pointList.get(i+1))); }
-        wayList.add(wayService.getSubWay(pointList.get(pointList.size()-1), way.getEndPoint()));
-
-        Double sumLength = 0.0;
-        Double sumTime = 0.0;
-        for(Way buf : wayList) {
-            sumLength += buf.getLength();
-            sumTime += buf.getLength() / buf.getTransport().getSpeed();
-        }
-
-        model.addAttribute("pointList", pointList);
-        model.addAttribute("wayList", wayList);
-        model.addAttribute("sumLength", sumLength);
-        model.addAttribute("sumTime", sumTime);*/
         model.addAttribute("wayList", wayList);
         model.addAttribute("wayService", wayService);
 
@@ -80,20 +56,27 @@ public class RequestsController {
     }
 
     @PostMapping("/addRequest")
-    public String addTransportData(@RequestParam String transportName,
-                                   @RequestParam String max_capacity,
-                                   @RequestParam String unit_cost,
-                                   @RequestParam String speed,
-                                   @RequestParam String dangerous,
-                                   @RequestParam String fragile,
-                                   @RequestParam String perishable,
+    public String addTransportData(@RequestParam String weight,
+                                   @RequestParam String id,
+                                   @RequestParam String type,
                                    Model model) {
         model.addAttribute("isAdmin", userService.isAdmin());
         model.addAttribute("isLogin", userService.isLogin());
 
-//        requestService.addRequest(transportName, max_capacity, unit_cost, speed, dangerous, fragile, perishable);
+        Way way = wayService.getById(id);
+        User user = userService.getCurrentUser();
+        Double cost = Double.valueOf(weight);
+        switch (type) {
+            case "dangerous": cost *= wayService.getDangerous(way); break;
+            case "fragile": cost *= wayService.getFragile(way); break;
+            case "perishable": cost *= wayService.getPerishable(way); break;
+            case "normal": cost *= wayService.getCost(way); break;
+        }
+        Request request = new Request(way, user, Double.valueOf(weight), cost);
+        requestService.addRequest(request);
+
         model.addAttribute("requestList", requestService.getRequestList(userService.getCurrentUser()));
-        return "requests";
+        return "redirect:/requests";
 
     }
 }

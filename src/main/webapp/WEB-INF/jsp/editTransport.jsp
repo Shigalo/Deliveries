@@ -9,6 +9,9 @@
         <div style="position:relative; padding: 5px"><label>Максимальная нагрузка : <input type="text" name="max_capacity" value="${max_capacity}"></label></div>
         <div style="position:relative; padding: 5px"><label>Цена за кг. : <input type="text" name="unit_cost" value="${unit_cost}"></label></div>
         <div style="position:relative; padding: 5px"><label>Скорость : <input type="text" name="speed" value="${speed}"></label></div>
+        <div style="position:relative; padding: 5px"><label>Коэффициент  опасного груза: <input type="number" step="0.01" name="dangerous" value="${dangerous}"></label></div>
+        <div style="position:relative; padding: 5px"><label>Коэффициент хрупкого груза : <input type="number" step="0.01" name="fragile" value="${fragile}"></label></div>
+        <div style="position:relative; padding: 5px"><label>Коэффициент скоропортящегося груза : <input type="number" step="0.01" name="perishable" value="${perishable}"></label></div>
         <span>${error}</span>
         <input type="hidden" name="_csrf" value="${_csrf.token}" />
         <div style="position:relative; padding: 5px"><input type="submit" value="Сохранить"/></div>

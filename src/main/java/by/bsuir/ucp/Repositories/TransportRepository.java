@@ -16,8 +16,8 @@ public interface TransportRepository extends JpaRepository<Transport, Long> {
 
     @Transactional
     @Modifying
-    @Query("update Transport t set t.name = ?1, t.max_capacity = ?2, t.unit_cost = ?3, t.speed = ?4 where t.id = ?5")
-    public void setUserInfoById(String name, Double max_capacity, Double unit_cost, Double speed, Integer id);
+    @Query("update Transport t set t.name = ?1, t.max_capacity = ?2, t.unit_cost = ?3, t.speed = ?4, t.dangerous = ?6, t.fragile = ?7, t.perishable = ?8 where t.id = ?5")
+    public void setUserInfoById(String name, Double max_capacity, Double unit_cost, Double speed, Integer id, Double dangerous, Double fragile, Double perishable);
 
     @Transactional
     public void deleteById(Integer id);
