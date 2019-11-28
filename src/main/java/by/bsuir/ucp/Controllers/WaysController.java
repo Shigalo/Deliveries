@@ -117,14 +117,9 @@ public class WaysController {
     public String setSubWaysData(@RequestParam String subPoints,
                                  @RequestParam String transport,
                                  @RequestParam String length[],
-                                   Model model) {
+                                 Model model) {
         model.addAttribute("isLogin", userService.isLogin());
         model.addAttribute("isAdmin", userService.isAdmin());
-
-        /*String[] sub = subPoints.split(",");
-        for(int i = 0; i < length.length; i++) {
-            System.out.println(sub[i] + " " + length[i] + " " + sub[i+1]);
-        }*/
 
         wayService.addWay(subPoints, length, transport);
 

@@ -48,27 +48,4 @@ public class Way {
         this.endPoint = endPoint;
         this.transport = transport;
     }
-
-//    @Transient
-//    @Autowired
-//    PointService pointService;
-//    @Transient
-//    @Autowired
-//    WayService wayService;
-//    public Double sumWay() {
-
-//       /* List<Point> pointList =*/ pointService.getPointList();
-
-//        List<Way> wayList = new ArrayList<>();
-//        wayList.add(wayService.getSubWay(getStartPoint(), pointList.get(0)));
-//        for(int i = 0; i < pointList.size()-1; i++) { wayList.add(wayService.getSubWay(pointList.get(i), pointList.get(i+1))); }
-//        wayList.add(wayService.getSubWay(pointList.get(pointList.size()-1), getEndPoint()));
-
-        /*Double sumLength = 0.0;
-        for(Way buf : wayList) {
-            sumLength += buf.getLength();
-        }*/
-//        return sumLength;
-//        return 100.0;
-//    }
 }

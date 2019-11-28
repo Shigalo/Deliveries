@@ -21,8 +21,8 @@ public class Request {
     private User user;
 
     private Double weight;
-
     private Double cost;
+    private Boolean complete;
 
     public Request(Way way, User user, Double weight, Double cost) {
         this.way = way;

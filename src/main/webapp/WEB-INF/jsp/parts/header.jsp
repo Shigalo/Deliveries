@@ -17,9 +17,8 @@
             <td><a href="${pageContext.request.contextPath}/ways">Пути снабжения</a></td>
             <td><a href="${pageContext.request.contextPath}/transport">Транспорт компании</a></td>
             <c:if test="${isLogin}"><td><a href="${pageContext.request.contextPath}/requests">Заявки</a></td></c:if>
-            <c:if test="${!isLogin}">
-                <td class = "log" id = "login"><a href="${pageContext.request.contextPath}/login">Вход</a></td>
-            </c:if>
+            <c:if test="${isAdmin}"><td><a href="${pageContext.request.contextPath}/requests/push">Отправить</a></td></c:if>
+            <c:if test="${!isLogin}"><td class = "log" id = "login"><a href="${pageContext.request.contextPath}/login">Вход</a></td></c:if>
             <c:if test="${isLogin}">
             <td class = "log" id = "logout">
                 <form action="${pageContext.request.contextPath}/logout" method="post">

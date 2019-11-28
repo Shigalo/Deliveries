@@ -12,21 +12,33 @@ import java.util.List;
 public class RequestService {
 
     @Autowired
-    RequestRepository RequestRepository;
+    RequestRepository requestRepository;
 
     public void addRequest(Request request) {
-        RequestRepository.save(request);
+        requestRepository.save(request);
     }
 
     public List<Request> getRequestList(User user) {
-        return RequestRepository.findByUser(user);
+        return requestRepository.findByUser(user);
     }
 
     public Request getById(String id) {
-        return RequestRepository.findById(Integer.valueOf(id));
+        return requestRepository.findById(Integer.valueOf(id));
     }
 
     public void RequestRemoveById(int id) {
-        RequestRepository.deleteById(id);
+        requestRepository.deleteById(id);
+    }
+
+    public List<Request> getRequestList() {
+        return requestRepository.findAll();
+    }
+
+    public List<Request> getWaitingRequestList() {
+        return requestRepository.findByCompleteFalse();
+    }
+
+    public void complete(String id) {
+        requestRepository.setComplete(Integer.valueOf(id));
     }
 }

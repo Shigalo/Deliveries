@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -167,5 +168,21 @@ public class WayService {
                 sum += buf.getTransport().getPerishable()*buf.getLength()*buf.getTransport().getUnit_cost();
         }
         return sum;
+    }
+
+    public Double getMaxWeight(Integer id) {
+        Way way = getById(String.valueOf(id));
+        List<Point> pointList = pointService.getSubPoints(id);
+
+        List<Way> wayList = new ArrayList<>();
+        wayList.add(wayService.getSubWay(way.getStartPoint(), pointList.get(0)));
+        for(int i = 0; i < pointList.size()-1; i++) { wayList.add(wayService.getSubWay(pointList.get(i), pointList.get(i+1))); }
+        wayList.add(wayService.getSubWay(pointList.get(pointList.size()-1), way.getEndPoint()));
+
+        Double maxWeight = wayList.get(0).getTransport().getMax_capacity();
+        for(Way buf : wayList) {
+            maxWeight = Math.min(maxWeight, buf.getTransport().getMax_capacity());
+        }
+        return maxWeight;
     }
 }

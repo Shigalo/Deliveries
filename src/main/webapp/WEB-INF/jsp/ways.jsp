@@ -30,13 +30,6 @@
                             <input type="submit" value="Подробнее">
                         </form>
                     </td>
-                        <%--<td>${way}</td>--%>
-                        <%--<td>
-                            <form action="/ways/wayEdit/${way.id}" method="get">
-                                <input type="hidden" name="_csrf" value="${_csrf.token}" />
-                                <input type="submit" value="Редактировать">
-                            </form>
-                        </td>--%>
                     <c:if test="${isAdmin}">
                         <td><a href="<c:url value='/ways/wayRemove/${way.id}'/>">Удалить</a></td>
                     </c:if>
@@ -44,5 +37,6 @@
             </c:forEach>
         </table>
     </c:if>
-    <%@include file='parts/footer.jsp'%>
 </div>
+<%@include file='parts/footer.jsp'%>
+

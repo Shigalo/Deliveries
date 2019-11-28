@@ -9,7 +9,7 @@
         <input type="hidden" name="nSubPoints" value="nSubPoints" />
         <%Integer n = Integer.valueOf(request.getParameter("nSubPoints"));%>
         <% for(int i = 0; i < n; i ++) { %>
-            <div style="position:relative; padding: 5px"><label>Промежуточная точка <%=i %>:<input type="text" name="subPoints"></label></div>
+            <div style="position:relative; padding: 5px"><label>Промежуточная точка <%=i+1 %>:<input type="text" name="subPoints"></label></div>
         <%}%>
 
 

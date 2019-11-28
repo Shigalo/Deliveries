@@ -34,15 +34,16 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model) {
         List<User> userList = userRepository.findAll();
-        List<Way> wayList = wayRepository.findAll();
+        List<Way> wayList = wayRepository.findByTransportNull();
         List<Transport> transportList = transportRepository.findAll();
-        List<Point> pointList = pointRepository.findAll();
+        List<Point> pointList = pointRepository.findByWayNull();
 
         model.addAttribute("userList", userList.size());
         model.addAttribute("wayList", wayList.size());
         model.addAttribute("transportList", transportList.size());
         model.addAttribute("pointList", pointList.size());
         model.addAttribute("isLogin", userService.isLogin());
+        model.addAttribute("isAdmin", userService.isAdmin());
 //        System.out.println(userService.isLogin());
 
         return "homepage";

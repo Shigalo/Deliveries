@@ -27,6 +27,7 @@ public class RegistrationController {
     @GetMapping
     public String setForm(Model  model) {
         model.addAttribute("isLogin", userService.isLogin());
+        model.addAttribute("isAdmin", userService.isAdmin());
 
         return "registration";
     }
@@ -37,6 +38,7 @@ public class RegistrationController {
                           @RequestParam String passwordConfirm,
                           Model model) {
         model.addAttribute("isLogin", userService.isLogin());
+        model.addAttribute("isAdmin", userService.isAdmin());
 
         if(!password.equals(passwordConfirm)) {
             model.addAttribute("massage", "Пароли не совпадают!");
