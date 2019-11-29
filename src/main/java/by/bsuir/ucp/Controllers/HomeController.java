@@ -43,8 +43,6 @@ public class HomeController {
         model.addAttribute("transportList", transportList.size());
         model.addAttribute("pointList", pointList.size());
         model.addAttribute("isLogin", userService.isLogin());
-        model.addAttribute("isAdmin", userService.isAdmin());
-//        System.out.println(userService.isLogin());
 
         return "homepage";
     }
