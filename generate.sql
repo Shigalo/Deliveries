@@ -74,6 +74,7 @@ CREATE TABLE request
     user_id int NOT NULL,
     weight double NOT NULL,
     cost double NOT NULL,
+    complete boolean NOT NULL,
     CONSTRAINT request_way FOREIGN KEY (way_id) REFERENCES way (id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT request_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
