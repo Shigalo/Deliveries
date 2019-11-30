@@ -10,8 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/transport")
-//@PreAuthorize("hasAuthority('ADMIN')")
+@RequestMapping("/transport")//список адресов
 public class TransportController {
 
     @Autowired
@@ -20,7 +19,7 @@ public class TransportController {
     @Autowired
     TransportService transportService;
 
-    @GetMapping
+    @GetMapping("")//конкретеый адрес
     public String setForm2(Model model) {
         model.addAttribute("isLogin", userService.isLogin());
         model.addAttribute("isAdmin", userService.isAdmin());

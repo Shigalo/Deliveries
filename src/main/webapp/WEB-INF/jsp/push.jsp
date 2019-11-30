@@ -19,7 +19,7 @@
     }
 
     function sort(rows) {
-        rows.sort(function (a, b) { return a.children[5].innerHTML/a.children[4].innerHTML - b.children[5].innerHTML/b.children[4].innerHTML });
+        rows.sort(function (a, b) { return b.children[5].innerHTML/b.children[4].innerHTML - a.children[5].innerHTML/a.children[4].innerHTML });
         var arr = [];
         for(var i = 0; i < rows.length; i++) {
             arr.push(rows[i].children[0].innerHTML);

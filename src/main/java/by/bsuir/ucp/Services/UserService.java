@@ -31,7 +31,10 @@ public class UserService {
     }
 
     public boolean isAdmin() {
-        return getCurrentUser().getRoles().contains(Role.ADMIN);
+        if(getCurrentUser() != null) {
+            return getCurrentUser().getRoles().contains(Role.ADMIN);
+        }
+        return false;
     }
     public boolean isLogin() {
         return getCurrentUser() != null;

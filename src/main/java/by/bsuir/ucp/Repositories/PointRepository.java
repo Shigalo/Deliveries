@@ -21,8 +21,8 @@ public interface PointRepository extends JpaRepository<Point, Long> {
 
     public Point findById(Integer id);
 
-    @Transactional
-    @Modifying
+    @Transactional//при изменении бд
+    @Modifying//модификация метода (запрос вручную)
     @Query("update Point p set p.name = ?1 where p.id = ?2")
     public void setUserInfoById(String name, Integer id);
 
